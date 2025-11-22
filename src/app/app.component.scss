@@ -1,0 +1,10 @@
+.cabecalho-fake{
+    min-height: 85px;
+}
+section {
+    background-image: url(../assets/background/background-armazem.png);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

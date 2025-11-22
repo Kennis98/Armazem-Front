@@ -1,0 +1,6 @@
+<section>
+    <div *ngFor="let produto of produtos">
+        <app-cartao-itens [nome]="produto.nome" [descricao]="produto.descricao" [estoque]="produto.estoque"
+            [imagem]="produto.urlImagem"></app-cartao-itens>
+    </div>
+</section>

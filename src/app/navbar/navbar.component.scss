@@ -1,0 +1,23 @@
+.offcanvas-header {
+    gap: 10px;
+}
+.nav-item {
+    display: flex;
+    gap: 10px;
+    img {
+        max-width: 50px;
+    }
+}
+.nav-link {
+    gap: 10px;
+    display: flex !important;
+    align-items: center !important;
+    color: white;
+}
+.dropdown {
+    flex-direction: column;
+    gap: 0;
+}
+.navbar-toggler {
+    border: 2px solid #FEEAB0;
+}

@@ -1,0 +1,142 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the theme object.
+$armazem-geovanne-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette,
+  ),
+  density: (
+    scale: 0,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+:root {
+  @include mat.all-component-themes($armazem-geovanne-theme);
+}
+
+// Comment out the line below if you want to use the pre-defined typography utility classes.
+// For more information: https://material.angular.io/guide/typography#using-typography-styles-in-your-application.
+// @include mat.typography-hierarchy($armazem-geovanne-theme);
+
+// Comment out the line below if you want to use the deprecated `color` inputs.
+// @include mat.color-variants-backwards-compatibility($armazem-geovanne-theme);
+:root {
+    /* Paleta principal */
+    --color-primary: #FCD150;
+    --color-primary-dark: #e6b800;
+    /* cor para hover */
+    --color-primary-text: white;
+    /* Amarelo vibrante (principal) */
+    --color-secondary: #EC7E23;
+    /* Laranja queimado (apoio) */
+    --color-accent: #EDAE42;
+    /* Amarelo mostarda (realce) */
+
+    /* Neutros e contraste */
+    --color-background: #F6E9D3;
+    /* Bege claro (fundo) */
+    --color-dark: #5B2823;
+    /* Marrom escuro (texto, contraste) */
+
+    /* Extras (se quiser usar em estados, hover, etc) */
+    --color-hover: #e3741f;
+    /* Versão um pouco mais escura da secundária */
+    --color-border: #d4b973;
+    /* Versão mais suave do amarelo mostarda */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.fs-12 {
+    font-size: 12px !important;
+}
+
+.fs-14 {
+    font-size: 14px !important;
+}
+
+.fs-16 {
+    font-size: 16px !important;
+}
+
+.fs-18 {
+    font-size: 18px !important;
+}
+
+.fs-20 {
+    font-size: 20px !important;
+}
+
+.fs-24 {
+    font-size: 24px !important;
+}
+
+.bg-primary {
+    background-color: var(--color-primary) !important;
+}
+
+.bg-secondary {
+    background-color: var(--color-secondary) !important;
+}
+
+.bg-accent {
+    background-color: var(--color-accent) !important;
+}
+
+.bg-dark {
+    background-color: rgb(49, 49, 49) !important;
+    color: white !important;
+}
+
+.bg-light {
+    background-color: #FFFFFF !important;
+}
+
+.primary-color {
+    color: var(--color-primary) !important;
+}
+
+.secondary-color {
+    color: var(--color-secondary) !important;
+}
+
+.color-dark {
+    color: var(--color-dark) !important;
+}
+
+a {
+    all: unset;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: var(--color-primary) !important;
+    color: var(--color-primary-text) !important;
+    border: 2px solid var(--color-primary) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: var(--color-primary-dark) !important;
+  border-color: var(--color-primary-dark) !important;
+  color: var(--color-primary-text) !important;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

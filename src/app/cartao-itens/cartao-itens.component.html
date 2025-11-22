@@ -1,0 +1,15 @@
+<section>
+    <div class="card">
+        <div class="caixa-imagem">
+          <img class="card-img-top" [src]="imagem" alt="imagem do produto">
+        </div>
+        <div class="card-body">
+          <div class="card-title">{{nome}}</div>  
+          <span class="card-text">{{descricao}}</span>
+          <div class="caixa-botoes">
+            <button class="btn" [class]="classeBotaoSecundario"><mat-icon>remove_shopping_cart</mat-icon></button>
+            <button class="btn" [class]="classeBotaoPrincipal">Adicionar </button>
+          </div>
+        </div>
+    </div>
+</section>
