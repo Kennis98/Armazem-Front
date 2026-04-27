@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { PrincipalSerivice } from '../service/principal.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,5 +10,17 @@ import { RouterModule } from '@angular/router';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
+  categorias: any;
 
+  constructor(private service: PrincipalSerivice) {
+
+  }
+  ngOnInit() {
+    this.buscarCategoria();
+  }
+  buscarCategoria() {
+    this.service.buscarCategorias().subscribe(res => {
+      this.categorias = res?.data
+    })
+  }
 }

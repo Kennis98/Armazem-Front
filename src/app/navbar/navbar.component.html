@@ -34,8 +34,14 @@
               Catálogo
             </a>
             <ul class="dropdown-menu dropdown-menu-dark">
-              <li><a class="dropdown-item" style="color: black !important;" data-bs-dismiss="offcanvas" [routerLink]="'catalogo'">Queijo</a></li>
-              <li><a class="dropdown-item" data-bs-dismiss="offcanvas" [routerLink]="'catalogo'">Sei lá</a></li>
+              @for (item of categorias; track item.id) {
+              <li>
+                <a class="dropdown-item" style="color: black !important;" data-bs-dismiss="offcanvas"
+                  [routerLink]="'catalogo'">
+                  {{item.descricao}}
+                </a>
+              </li>
+              }
             </ul>
           </li>
         </ul>
