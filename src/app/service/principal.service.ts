@@ -31,14 +31,14 @@ export class PrincipalSerivice {
       });
     }
 
-    buscarProdutosCategoria(): Observable<any> {
-      return this.http.get<any>(`${this.API_BLING}/produtos/categoria`, {
+    buscarProdutosCategoria(id: string | null): Observable<any> {
+      return this.http.get<any>(`${this.baseUrl}${this.API_BLING}/produtos/categoria/${id}`, {
         ...this.addHeaders()
       });
     }
 
     buscarCep(cep: string): Observable<any> {
-      return this.http.get<any>(`${this.API_BLING}/cep/${cep}`, {
+      return this.http.get<any>(`${this.baseUrl}${this.API_BLING}/cep/${cep}`, {
         ...this.addHeaders()
       });
     }

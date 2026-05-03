@@ -1,3 +1,3 @@
 export interface Estoque {
-    SaldoVirtual: string
+    saldoVirtualTotal: number
 }

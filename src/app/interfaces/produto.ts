@@ -7,5 +7,5 @@ export interface Produto {
     preco: number,
     estoque: Estoque,
     descricaoCurta: string,
-    imagemUrl: string
+    imagemURL: string
 }

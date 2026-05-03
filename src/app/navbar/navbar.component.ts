@@ -12,9 +12,7 @@ import { PrincipalSerivice } from '../service/principal.service';
 export class NavbarComponent {
   categorias: any;
 
-  constructor(private service: PrincipalSerivice) {
-
-  }
+  constructor(private service: PrincipalSerivice) {}
   ngOnInit() {
     this.buscarCategoria();
   }
