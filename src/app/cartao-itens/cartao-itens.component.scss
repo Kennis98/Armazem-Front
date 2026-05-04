@@ -4,8 +4,9 @@ section {
 .card {
     display: flex;
     justify-content: center;
-    width: 160px;
+    width: 170px;
     height: 320px;
+    padding-top: 10px;
 }
 img {
     width: 100px;
@@ -20,6 +21,8 @@ img {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    align-items: center;
+    padding: 10px;
 }
 .card-title {
     font-size: 14px;
@@ -27,7 +30,9 @@ img {
 }
 .card-text {
     font-size: 12px;
+    text-align: center;
 }
 .caixa-botoes {
     display: flex;
+    gap: 4px;
 }
