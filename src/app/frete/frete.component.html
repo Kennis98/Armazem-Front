@@ -1,0 +1,40 @@
+<section class="container mt-4">
+    <h3 class="mb-4">Cadastro de Frete</h3>
+    <div class="caixa-cadastro-frete">
+        <div>
+            <form [formGroup]="formularioFrete">
+
+                <input type="hidden" formControlName="id">
+
+                <div class="mb-3">
+                    <label for="uf" class="form-label">UF:</label>
+                    <input type="text" id="uf" class="form-control" formControlName="uf" maxlength="2"
+                        placeholder="Ex: SP">
+                </div>
+
+                <div class="mb-3">
+                    <label for="bairro" class="form-label">Bairro:</label>
+                    <input type="text" id="bairro" class="form-control" formControlName="bairro"
+                        placeholder="Digite o bairro">
+                </div>
+
+                <div class="mb-3">
+                    <label for="cep" class="form-label">CEP:</label>
+                    <input type="text" id="cep" class="form-control" formControlName="cep" placeholder="00000-000">
+                </div>
+
+                <div class="mb-3">
+                    <label for="valorFrete" class="form-label">Valor do Frete (R$):</label>
+                    <input type="number" id="valorFrete" class="form-control" formControlName="valorFrete" step="0.01">
+                </div>
+
+                <button (click)="salvarFrete()" class="btn btn-primary">Salvar Frete</button>
+
+            </form>
+        </div>
+        <div>
+            Lista CEPS
+        </div>
+    </div>
+
+</section>
