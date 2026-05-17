@@ -33,7 +33,35 @@
             </form>
         </div>
         <div>
-            Lista CEPS
+            <table class="table table-striped mt-4">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>UF</th>
+                        <th>Bairro</th>
+                        <th>CEP</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Nova sintaxe @for -->
+                    @for (frete of fretes; track frete.uf) {
+                    <tr>
+                        <!-- O índice agora é acessado com $index -->
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ frete.uf }}</td>
+                        <td>{{ frete.bairro }}</td>
+                        <td>{{ frete.cep }}</td>
+                        <td>{{ frete.valorFrete }}</td>
+                    </tr>
+                    } @empty {
+                    <!-- O bloco @empty é nativo e aparece se a lista estiver vazia -->
+                    <tr>
+                        <td colspan="5" class="text-center">Nenhum frete cadastrado para exibir.</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 

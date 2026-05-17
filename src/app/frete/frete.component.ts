@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { PrincipalSerivice } from '../service/principal.service';
+import { Frete } from '../interfaces/frete';
 
 @Component({
   selector: 'app-frete',
@@ -11,17 +13,28 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 export class FreteComponent implements OnInit {
   formularioFrete = new FormGroup({
-    id: new FormControl(''),
-    uf: new FormControl(''),
-    bairro: new FormControl(''),
-    cep: new FormControl(''),
-    valorFrete: new FormControl('')
+    id: new FormControl(0),
+    uf: new FormControl('',[Validators.required]),
+    bairro: new FormControl('',[Validators.required]),
+    cep: new FormControl('',[Validators.required]),
+    valorFrete: new FormControl(0,[Validators.required])
   });
+  fretes: Array<Frete> = [];
+
+  constructor(private service: PrincipalSerivice) { }
 
   ngOnInit() {
-    
+    this.buscarFretes();
   }
   salvarFrete(): void {
-    console.log(this.formularioFrete.value)
+    const freteCadastro = this.formularioFrete.getRawValue() as Frete;
+    this.service.cadastrarFrete(freteCadastro).subscribe(res => { 
+      this.buscarFretes();
+    })
+  }
+  buscarFretes() {
+    this.service.buscarFretes().subscribe(res => {
+      this.fretes = res;
+    })
   }
 }

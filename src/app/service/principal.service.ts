@@ -45,12 +45,12 @@ export class PrincipalSerivice {
   }
   cadastrarFrete(frete: Frete): Observable<any> {
     return this.http.post<any>(
-      `${this.baseUrl}${this.API_BLING}/fretes`, frete, {
+      `${this.baseUrl}fretes`, frete, {
       ...this.addHeaders()
     });
   }
-  listarFretes(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}${this.API_BLING}/fretes`, {
+  buscarFretes(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}fretes`, {
       ...this.addHeaders()
     });
   }
