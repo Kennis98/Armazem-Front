@@ -6,9 +6,23 @@
         <div class="card-body">
           <div class="card-title">{{nome}}</div>  
           <span class="card-text">{{descricao}}</span>
+          
           <div class="caixa-botoes">
-            <button class="btn" [class]="classeBotaoSecundario"><mat-icon>remove_shopping_cart</mat-icon></button>
-            <button class="btn" [class]="classeBotaoPrincipal">Adicionar </button>
+            <button 
+              *ngIf="modo === 'carrinho'" 
+              class="btn" 
+              [class]="classeBotaoSecundario" 
+              (click)="remover()">
+              <mat-icon>remove_shopping_cart</mat-icon> Remover
+            </button>
+            
+            <button 
+              *ngIf="modo === 'catalogo'" 
+              class="btn" 
+              [class]="classeBotaoPrincipal" 
+              (click)="adicionar()">
+              Adicionar 
+            </button>
           </div>
         </div>
     </div>

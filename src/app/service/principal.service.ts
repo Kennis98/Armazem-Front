@@ -12,7 +12,7 @@ export class PrincipalSerivice {
 
   constructor(private http: HttpClient) { }
 
-  private readonly baseUrl = 'https://localhost:44384/';
+  private readonly baseUrl = 'http://localhost:5041/';
 
   private addHeaders() {
     const headers = new HttpHeaders({
@@ -39,7 +39,7 @@ export class PrincipalSerivice {
   }
 
   buscarCep(cep: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}${this.API_BLING}/cep/${cep}`, {
+    return this.http.get<any>(`${this.baseUrl}cep/${cep}`, {
       ...this.addHeaders()
     });
   }

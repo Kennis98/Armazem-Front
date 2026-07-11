@@ -1,1 +1,48 @@
-<p>carrinho works!</p>
+<section>
+  <div class="lista-itens">
+    <div *ngFor="let item of itens">
+      <app-cartao-itens
+        [nome]="item.nome"
+        [descricao]="item.descricaoCurta"
+        [estoque]="item.estoque.saldoVirtualTotal"
+        [imagem]="item.imagemURL"
+        [modo]="'carrinho'"
+        (removerDoCarrinho)="removerItem(item.id)">
+      </app-cartao-itens>
+    </div>
+
+    <div *ngIf="itens.length === 0">
+      <p>Seu carrinho está vazio.</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="frete-container" *ngIf="itens.length > 0">
+    <h3>Calcular Frete e Prazo</h3>
+    
+    <div class="input-group">
+      <input type="text" #cepInput placeholder="Digite seu CEP (apenas números)" maxlength="9">
+      <button class="btn btn-primary" (click)="calcularFrete(cepInput.value)">Calcular</button>
+    </div>
+
+    <div *ngIf="erroFrete" style="color: red; margin-top: 10px;">
+      {{ erroFrete }}
+    </div>
+
+    <div *ngIf="freteResultado" style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 5px;">
+      <p><strong>Destino:</strong> {{ freteResultado.logradouro }}, {{ freteResultado.bairro }}</p>
+      <p><strong>Localidade:</strong> {{ freteResultado.localidade }} - {{ freteResultado.uf }}</p>
+      
+      <h4 style="margin-top: 15px;">
+        <strong>Valor do Frete: </strong> 
+        <span *ngIf="freteResultado.valorFrete > 0; else freteZerado" style="color: #198754;">
+          {{ freteResultado.valorFrete | currency:'BRL' }}
+        </span>
+        <ng-template #freteZerado>
+          <span style="color: #0dcaf0;">A Combinar / Não cadastrado</span>
+        </ng-template>
+      </h4>
+    </div>
+  </div>
+</section>
