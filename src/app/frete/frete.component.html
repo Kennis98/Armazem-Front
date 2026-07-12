@@ -1,68 +1,70 @@
-<section class="container mt-4">
-    <h3 class="mb-4">Cadastro de Frete</h3>
-    <div class="caixa-cadastro-frete">
-        <div>
-            <form [formGroup]="formularioFrete">
-
+<section class="fretes-container">
+    <h2 class="titulo-sessao">Gerenciamento de Fretes</h2>
+    
+    <div class="layout-fretes">
+        <div class="card-formulario">
+            <h3 class="titulo-card">Cadastrar Novo Frete</h3>
+            <form [formGroup]="formularioFrete" class="form-moderno">
                 <input type="hidden" formControlName="id">
 
-                <div class="mb-3">
-                    <label for="uf" class="form-label">UF:</label>
-                    <input type="text" id="uf" class="form-control" formControlName="uf" maxlength="2"
-                        placeholder="Ex: SP">
+                <div class="campo-grupo">
+                    <label for="uf">UF</label>
+                    <input type="text" id="uf" formControlName="uf" maxlength="2" placeholder="Ex: SP">
                 </div>
 
-                <div class="mb-3">
-                    <label for="bairro" class="form-label">Bairro:</label>
-                    <input type="text" id="bairro" class="form-control" formControlName="bairro"
-                        placeholder="Digite o bairro">
+                <div class="campo-grupo">
+                    <label for="bairro">Bairro</label>
+                    <input type="text" id="bairro" formControlName="bairro" placeholder="Digite o bairro">
                 </div>
 
-                <div class="mb-3">
-                    <label for="cep" class="form-label">CEP:</label>
-                    <input type="text" id="cep" class="form-control" formControlName="cep" placeholder="00000-000">
+                <div class="campo-grupo">
+                    <label for="cep">CEP</label>
+                    <input type="text" id="cep" formControlName="cep" placeholder="00000-000" maxlength="8">
                 </div>
 
-                <div class="mb-3">
-                    <label for="valorFrete" class="form-label">Valor do Frete (R$):</label>
-                    <input type="number" id="valorFrete" class="form-control" formControlName="valorFrete" step="0.01">
+                <div class="campo-grupo">
+                    <label for="valorFrete">Valor do Frete (R$)</label>
+                    <input type="number" id="valorFrete" formControlName="valorFrete" step="0.01" placeholder="0,00">
                 </div>
 
-                <button (click)="salvarFrete()" class="btn btn-primary">Salvar Frete</button>
-
+                <button type="button" (click)="salvarFrete()" class="btn-salvar">
+                    Salvar Frete
+                </button>
             </form>
         </div>
-        <div>
-            <table class="table table-striped mt-4">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>UF</th>
-                        <th>Bairro</th>
-                        <th>CEP</th>
-                        <th>Valor</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Nova sintaxe @for -->
-                    @for (frete of fretes; track frete.uf) {
-                    <tr>
-                        <!-- O índice agora é acessado com $index -->
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ frete.uf }}</td>
-                        <td>{{ frete.bairro }}</td>
-                        <td>{{ frete.cep }}</td>
-                        <td>{{ frete.valorFrete }}</td>
-                    </tr>
-                    } @empty {
-                    <!-- O bloco @empty é nativo e aparece se a lista estiver vazia -->
-                    <tr>
-                        <td colspan="5" class="text-center">Nenhum frete cadastrado para exibir.</td>
-                    </tr>
-                    }
-                </tbody>
-            </table>
+
+        <div class="card-tabela">
+            <h3 class="titulo-card">Bairros Atendidos</h3>
+            <div class="tabela-responsiva">
+                <table class="tabela-moderna">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>UF</th>
+                            <th>Bairro</th>
+                            <th>CEP</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (frete of fretes; track frete.uf) {
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td class="uf-badge"><span>{{ frete.uf }}</span></td>
+                            <td>{{ frete.bairro }}</td>
+                            <td>{{ frete.cep }}</td>
+                            <td class="valor-col">{{ frete.valorFrete | currency:'BRL' }}</td>
+                        </tr>
+                        } @empty {
+                        <tr>
+                            <td colspan="5" class="tabela-vazia">
+                                Nenhum frete cadastrado para exibir.
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-
 </section>

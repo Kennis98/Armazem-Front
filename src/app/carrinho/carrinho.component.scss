@@ -1,0 +1,158 @@
+.carrinho-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.titulo-sessao {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 25px;
+  border-bottom: 2px solid #FACC15;
+  padding-bottom: 10px;
+  display: inline-block;
+}
+.grade-carrinho {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.carrinho-vazio {
+  text-align: center;
+  padding: 50px 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  color: #666;
+  
+  p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+}
+
+.btn-voltar {
+  background-color: #FACC15;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: filter 0.2s;
+
+  &:hover { filter: brightness(0.9); }
+}
+
+.divisor {
+  border: 0;
+  height: 1px;
+  background: #e9ecef;
+  margin: 40px 0;
+}
+
+/* ===============================
+   SEÇÃO DE FRETE E CHECKOUT
+=============================== */
+.frete-container {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  max-width: 600px;
+  margin: 0 auto; /* Centraliza a caixa de frete na tela */
+}
+
+.titulo-frete {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.input-cep {
+  flex-grow: 1;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+
+  &:focus {
+    outline: none;
+    border-color: #FACC15;
+  }
+}
+
+.btn-calcular {
+  background-color: #FACC15;
+  color: #333;
+  border: none;
+  padding: 0 25px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: filter 0.2s;
+
+  &:hover { filter: brightness(0.9); }
+}
+
+.alerta-erro {
+  color: #dc2626;
+  background: #fee2e2;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+/* ===============================
+   RESULTADO DO FRETE E WHATSAPP
+=============================== */
+.resultado-frete {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.detalhes-endereco {
+  p {
+    margin: 0 0 5px 0;
+    color: #555;
+    font-size: 0.95rem;
+  }
+}
+
+.valor-frete-caixa {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+  padding-top: 15px;
+  border-top: 1px dashed #ccc;
+  font-size: 1.2rem;
+
+  .frete-pago { color: #16a34a; font-size: 1.4rem; }
+  .frete-gratis { color: #0284c7; font-size: 1.1rem; }
+}
+
+.btn-whatsapp {
+  width: 100%;
+  background-color: #25D366; /* Verde oficial do WhatsApp */
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.1s, background 0.2s;
+
+  &:hover { background-color: #1ebc5a; }
+  &:active { transform: scale(0.98); }
+}

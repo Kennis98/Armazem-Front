@@ -1,0 +1,13 @@
+<div class="overlay-fundo" *ngIf="uiService.loading$ | async">
+  <div class="caixa-loading">
+    <div class="spinner"></div>
+    <p>Carregando...</p>
+  </div>
+</div>
+
+<div 
+  class="toast-notificacao" 
+  *ngIf="(uiService.toast$ | async)?.show"
+  [ngClass]="(uiService.toast$ | async)?.tipo">
+  {{ (uiService.toast$ | async)?.mensagem }}
+</div>

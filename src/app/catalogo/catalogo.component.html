@@ -5,7 +5,7 @@
       [descricao]="produto.descricaoCurta"
       [estoque]="produto.estoque.saldoVirtualTotal"
       [imagem]="produto.imagemURL"
-      (adicionarAoCarrinho)="adicionarAoCarrinho(produto)">
-    </app-cartao-itens>
+      [modo]="'catalogo'"
+      (adicionarAoCarrinho)="adicionarAoCarrinho(produto, $event)"> </app-cartao-itens>
   </div>
 </section>

@@ -1,29 +1,41 @@
-<section>
-    <div class="card">
-        <div class="caixa-imagem">
-          <img class="card-img-top" [src]="imagem" alt="imagem do produto">
-        </div>
-        <div class="card-body">
-          <div class="card-title">{{nome}}</div>  
-          <span class="card-text">{{descricao}}</span>
-          
-          <div class="caixa-botoes">
-            <button 
-              *ngIf="modo === 'carrinho'" 
-              class="btn" 
-              [class]="classeBotaoSecundario" 
-              (click)="remover()">
-              <mat-icon>remove_shopping_cart</mat-icon> Remover
-            </button>
-            
-            <button 
-              *ngIf="modo === 'catalogo'" 
-              class="btn" 
-              [class]="classeBotaoPrincipal" 
-              (click)="adicionar()">
-              Adicionar 
-            </button>
-          </div>
-        </div>
+<section class="cartao-moderno">
+  <div class="cartao-imagem">
+    <img [src]="imagem" alt="Imagem do produto {{nome}}">
+  </div>
+  
+  <div class="cartao-conteudo">
+    <h3 class="cartao-titulo">{{ nome }}</h3>
+    <p class="cartao-descricao">{{ descricao }}</p>
+
+    <div class="controle-qtd-wrapper">
+      <button type="button" class="btn-qtd" (click)="diminuir()">-</button>
+      
+      <input 
+        type="number" 
+        class="input-qtd" 
+        [(ngModel)]="quantidade" 
+        (ngModelChange)="notificarMudanca()" 
+        min="1">
+        
+      <button type="button" class="btn-qtd" (click)="aumentar()">+</button>
     </div>
+    
+    <div class="cartao-acoes">
+      <button 
+        type="button" 
+        *ngIf="modo === 'carrinho'" 
+        class="btn-acao btn-remover" 
+        (click)="remover()">
+        <mat-icon>delete_outline</mat-icon> Remover
+      </button>
+      
+      <button 
+        type="button" 
+        *ngIf="modo === 'catalogo'" 
+        class="btn-acao btn-adicionar" 
+        (click)="adicionar()">
+        Adicionar
+      </button>
+    </div>
+  </div>
 </section>

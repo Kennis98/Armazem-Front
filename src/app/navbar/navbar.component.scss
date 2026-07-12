@@ -21,3 +21,21 @@
 .navbar-toggler {
     border: 2px solid #FEEAB0;
 }
+.dropdown-menu {
+    background-color: #FEEAB0;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.dropdown-item {
+    color: #333 !important;
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+    width: auto;
+
+    &:hover {
+        background-color: #facc1579;
+        color: #fff !important;
+        border: radius 8px;
+    }
+}

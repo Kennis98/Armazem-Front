@@ -25,18 +25,33 @@ export class CarrinhoService {
     return this.obterCarrinhoStorage();
   }
 
-  adicionarItem(produto: Produto): void {
+  adicionarItem(produto: Produto, quantidadeDesejada: number = 1): void {
     const itens = this.obterCarrinhoStorage();
-    // ajuste "id" para o campo que identifica unicamente o produto na sua interface
     const itemExistente = itens.find(i => i.id === produto.id);
 
     if (itemExistente) {
-      itemExistente.quantidade += 1;
+      itemExistente.quantidade += quantidadeDesejada;
     } else {
-      itens.push({ ...produto, quantidade: 1 });
+      itens.push({ ...produto, quantidade: quantidadeDesejada });
     }
 
     this.salvarCarrinhoStorage(itens);
+  }
+
+  // 👉 NOVO MÉTODO: Atualiza o número exato digitado ou clicado no carrinho
+  atualizarQuantidade(produtoId: string, novaQuantidade: number): void {
+    if (novaQuantidade <= 0) {
+      this.removerItem(produtoId);
+      return;
+    }
+
+    const itens = this.obterCarrinhoStorage();
+    const item = itens.find(i => i.id === produtoId);
+    
+    if (item) {
+      item.quantidade = novaQuantidade;
+      this.salvarCarrinhoStorage(itens);
+    }
   }
 
   removerItem(produtoId: string): void {

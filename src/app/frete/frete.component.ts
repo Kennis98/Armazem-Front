@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PrincipalSerivice } from '../service/principal.service';
 import { Frete } from '../interfaces/frete';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-frete',
   standalone: true,
-  imports: [ReactiveFormsModule], // Adicionado aqui!
+  imports: [ReactiveFormsModule,CommonModule], // Adicionado aqui!
   templateUrl: './frete.component.html',
   styleUrl: './frete.component.scss'
 })
