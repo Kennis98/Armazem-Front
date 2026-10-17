@@ -4,5 +4,5 @@ export const environment = {
   production: false,
   useMock: false,
   apiUrl: 'http://localhost:5041/',
-  whatsappNumber: '5519998593010',
+  whatsappNumber: '5511974685735',
 };
