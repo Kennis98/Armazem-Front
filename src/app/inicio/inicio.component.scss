@@ -1,0 +1,131 @@
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 24px auto 0;
+  padding: 40px 48px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  box-shadow: var(--shadow-md);
+
+  @media (max-width: 767.98px) {
+    flex-direction: column-reverse;
+    margin: 16px;
+    padding: 28px 22px;
+    text-align: center;
+  }
+}
+
+.hero__texto {
+  max-width: 560px;
+
+  h1 {
+    margin: 12px 0;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.15;
+
+    span { color: #fff; text-shadow: 0 1px 0 rgba(91, 40, 35, .35); }
+  }
+
+  p {
+    margin: 0 0 24px;
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+}
+
+.hero__selo {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: rgba(91, 40, 35, .12);
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+.hero__logo {
+  width: clamp(130px, 22vw, 260px);
+  height: auto;
+  filter: drop-shadow(0 8px 16px rgba(91, 40, 35, .25));
+}
+
+.categorias {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 16px;
+}
+
+.categoria {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px;
+  background: var(--color-surface);
+  border: 1px solid rgba(212, 185, 115, .45);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.categoria__icone {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-primary);
+
+  mat-icon { color: var(--color-dark); }
+}
+
+.categoria__nome { flex-grow: 1; font-weight: 600; }
+.categoria__seta { color: var(--color-secondary); }
+.categoria-skeleton { height: 86px; }
+
+.passos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.passo {
+  position: relative;
+  text-align: center;
+
+  h3 { margin: 10px 0 6px; font-size: 1.05rem; font-weight: 600; }
+  p { margin: 0; color: var(--color-muted); font-size: .9rem; }
+}
+
+.passo__numero {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-dark);
+  color: var(--color-primary);
+  font-size: .8rem;
+  font-weight: 700;
+}
+
+.passo__icone {
+  width: 40px;
+  height: 40px;
+  font-size: 40px;
+  color: var(--color-secondary);
+}

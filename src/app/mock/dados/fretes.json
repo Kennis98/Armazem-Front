@@ -1,0 +1,5 @@
+[
+  { "id": 1, "uf": "SP", "bairro": "Centro", "cep": "13400100", "valorFrete": 6 },
+  { "id": 2, "uf": "SP", "bairro": "Jardim Primavera", "cep": "13400200", "valorFrete": 8.5 },
+  { "id": 3, "uf": "SP", "bairro": "Vila Industrial", "cep": "13400300", "valorFrete": 10 }
+]

@@ -1,11 +1,61 @@
-<section>
-  <div *ngFor="let produto of produtos">
-    <app-cartao-itens
-      [nome]="produto.nome"
-      [descricao]="produto.descricaoCurta"
-      [estoque]="produto.estoque.saldoVirtualTotal"
-      [imagem]="produto.imagemURL"
-      [modo]="'catalogo'"
-      (adicionarAoCarrinho)="adicionarAoCarrinho(produto, $event)"> </app-cartao-itens>
+<section class="page">
+  <nav class="migalhas" aria-label="Você está em">
+    <a routerLink="/inicio">Início</a>
+    <mat-icon aria-hidden="true">chevron_right</mat-icon>
+    <span aria-current="page">{{ categoriaNome() }}</span>
+  </nav>
+
+  <div class="topo">
+    <h1 class="page-title">{{ categoriaNome() }}</h1>
+
+    @if (estado() === 'ok' && produtos().length > 0) {
+      <label class="busca">
+        <mat-icon aria-hidden="true">search</mat-icon>
+        <input type="search" class="input" placeholder="Buscar nesta categoria" aria-label="Buscar produtos"
+          [value]="busca()" (input)="busca.set($any($event.target).value)">
+      </label>
+    }
   </div>
+
+  @switch (estado()) {
+    @case ('carregando') {
+      <div class="grade">
+        @for (_ of [1, 2, 3, 4, 5, 6, 7, 8]; track $index) {
+          <div class="skeleton produto-skeleton"></div>
+        }
+      </div>
+    }
+    @case ('erro') {
+      <div class="alert-erro" role="alert">
+        <mat-icon aria-hidden="true">error_outline</mat-icon>
+        Não foi possível carregar os produtos.
+        <button type="button" class="btn-brand btn-brand--outline ms-auto" (click)="recarregar()">Tentar novamente</button>
+      </div>
+    }
+    @default {
+      @if (produtos().length === 0) {
+        <div class="vazio surface">
+          <mat-icon aria-hidden="true">inventory_2</mat-icon>
+          <p>Nenhum produto nesta categoria por enquanto.</p>
+        </div>
+      } @else if (produtosFiltrados().length === 0) {
+        <div class="vazio surface">
+          <mat-icon aria-hidden="true">search_off</mat-icon>
+          <p>Nenhum produto encontrado para "{{ busca() }}".</p>
+        </div>
+      } @else {
+        <div class="grade">
+          @for (produto of produtosFiltrados(); track produto.id) {
+            <app-cartao-itens
+              [nome]="produto.nome"
+              [descricao]="produto.descricaoCurta"
+              [preco]="produto.preco"
+              [estoque]="produto.estoque?.saldoVirtualTotal ?? 0"
+              [imagem]="produto.imagemURL"
+              (adicionarAoCarrinho)="adicionarAoCarrinho(produto, $event)" />
+          }
+        </div>
+      }
+    }
+  }
 </section>

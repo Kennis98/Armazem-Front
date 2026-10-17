@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
-import { RouterModule } from '@angular/router';
 import { RodapeComponent } from './rodape/rodape.component';
 import { InteracoesComponent } from './interacoes/interacoes.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,NavbarComponent,RouterModule,RodapeComponent,InteracoesComponent],
+  imports: [RouterOutlet, NavbarComponent, RodapeComponent, InteracoesComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

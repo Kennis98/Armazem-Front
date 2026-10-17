@@ -1,58 +1,47 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { Categoria } from '../interfaces/categoria';
+import { CepResposta } from '../interfaces/cep';
 import { Frete } from '../interfaces/frete';
+import { Produto } from '../interfaces/produto';
+import { RespostaLista } from '../interfaces/resposta-lista';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PrincipalSerivice {
+export class PrincipalService {
 
-  private API_BLING: string = "bling"
+  private readonly baseUrl = environment.apiUrl;
+  private readonly API_BLING = 'bling';
+
+  private categorias$?: Observable<Categoria[]>;
 
   constructor(private http: HttpClient) { }
 
-  private readonly baseUrl = 'http://localhost:5041/';
-
-  private addHeaders() {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-
-    });
-
-    // tslint:disable-next-line: object-literal-shorthand
-    const options = { headers: headers };
-
-    return options;
+  /** Categorias já em lista e em cache: navbar, início e catálogo compartilham a mesma chamada. */
+  categorias(): Observable<Categoria[]> {
+    this.categorias$ ??= this.http
+      .get<RespostaLista<Categoria>>(`${this.baseUrl}${this.API_BLING}/categorias`)
+      .pipe(map(res => res.data ?? []), shareReplay(1));
+    return this.categorias$;
   }
 
-  buscarCategorias(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}${this.API_BLING}/categorias`, {
-      ...this.addHeaders()
-    });
+  buscarProdutosCategoria(id: string | null): Observable<RespostaLista<Produto>> {
+    return this.http.get<RespostaLista<Produto>>(`${this.baseUrl}${this.API_BLING}/produtos/categoria/${id}`);
   }
 
-  buscarProdutosCategoria(id: string | null): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}${this.API_BLING}/produtos/categoria/${id}`, {
-      ...this.addHeaders()
-    });
+  buscarCep(cep: string): Observable<CepResposta> {
+    return this.http.get<CepResposta>(`${this.baseUrl}cep/${cep}`);
   }
 
-  buscarCep(cep: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}cep/${cep}`, {
-      ...this.addHeaders()
-    });
-  }
-  cadastrarFrete(frete: Frete): Observable<any> {
-    return this.http.post<any>(
-      `${this.baseUrl}fretes`, frete, {
-      ...this.addHeaders()
-    });
-  }
-  buscarFretes(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}fretes`, {
-      ...this.addHeaders()
-    });
+  cadastrarFrete(frete: Omit<Frete, 'id'> & { id?: number }): Observable<Frete> {
+    return this.http.post<Frete>(`${this.baseUrl}fretes`, frete);
   }
 
+  buscarFretes(): Observable<Frete[]> {
+    return this.http.get<Frete[]>(`${this.baseUrl}fretes`);
+  }
 }

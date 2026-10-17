@@ -1,31 +1,24 @@
-<section class="bg-dark">
-    <div class="container">
-  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top bg-dark text-white">
-    <div class="col-md-4 d-flex align-items-center">
-      <a href="/" class="mb-3 me-2 mb-md-0 text-white text-decoration-none lh-1">
-        <svg class="bi" width="30" height="24">
-          <use xlink:href="#bootstrap"></use>
-        </svg>
-      </a>
-      <span class="text-white">© 2021 Company, Inc</span>
+<footer class="rodape">
+  <div class="rodape__conteudo">
+    <div class="rodape__marca">
+      <img src="assets/logos/armazem-logo.png" width="52" height="51" alt="">
+      <div>
+        <strong>Armazém Geovanne</strong>
+        <span>Faça seu pedido online e finalize pelo WhatsApp.</span>
+      </div>
     </div>
 
-    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-      <li class="ms-3">
-        
-      </li>
-      <li class="ms-3">
-        <a class="text-white" href="#"><svg class="bi" width="24" height="24">
-            <use xlink:href="#instagram"></use>
-          </svg></a>
-      </li>
-      <li class="ms-3">
-        <a class="text-white" href="#"><svg class="bi" width="24" height="24">
-            <use xlink:href="#facebook"></use>
-          </svg></a>
-      </li>
-    </ul>
-  </footer>
-</div>
+    <nav class="rodape__links" aria-label="Links do rodapé">
+      <a [href]="whatsappUrl" target="_blank" rel="noopener">
+        <mat-icon aria-hidden="true">chat</mat-icon> Fale no WhatsApp
+      </a>
+    </nav>
+  </div>
 
-</section>
+  <div class="rodape__legal">
+    <span>© {{ ano }} Armazém Geovanne. Todos os direitos reservados.</span>
+    @if (demo) {
+      <span class="rodape__demo">Ambiente de demonstração · dados fictícios</span>
+    }
+  </div>
+</footer>

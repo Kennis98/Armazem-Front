@@ -1,13 +1,19 @@
-<div class="overlay-fundo" *ngIf="uiService.loading$ | async">
-  <div class="caixa-loading">
-    <div class="spinner"></div>
-    <p>Carregando...</p>
+@if (uiService.loading$ | async) {
+  <div class="overlay-fundo" role="alert" aria-busy="true">
+    <div class="caixa-loading">
+      <div class="spinner"></div>
+      <p>Carregando...</p>
+    </div>
   </div>
-</div>
+}
 
-<div 
-  class="toast-notificacao" 
-  *ngIf="(uiService.toast$ | async)?.show"
-  [ngClass]="(uiService.toast$ | async)?.tipo">
-  {{ (uiService.toast$ | async)?.mensagem }}
+<div class="toast-area" aria-live="polite" role="status">
+  @if (uiService.toast$ | async; as toast) {
+    @if (toast.show) {
+      <div class="toast-notificacao" [class.erro]="toast.tipo === 'erro'">
+        <mat-icon aria-hidden="true">{{ toast.tipo === 'erro' ? 'error_outline' : 'check_circle_outline' }}</mat-icon>
+        {{ toast.mensagem }}
+      </div>
+    }
+  }
 </div>

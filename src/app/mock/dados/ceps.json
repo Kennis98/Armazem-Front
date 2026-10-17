@@ -1,0 +1,5 @@
+{
+  "13400100": { "cep": "13400-100", "logradouro": "Rua das Palmeiras", "complemento": "", "bairro": "Centro", "localidade": "Cidade Exemplo", "uf": "SP" },
+  "13400200": { "cep": "13400-200", "logradouro": "Avenida dos Ipês", "complemento": "", "bairro": "Jardim Primavera", "localidade": "Cidade Exemplo", "uf": "SP" },
+  "13400500": { "cep": "13400-500", "logradouro": "Estrada do Sítio", "complemento": "", "bairro": "Zona Rural", "localidade": "Cidade Exemplo", "uf": "SP" }
+}
