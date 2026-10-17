@@ -5,5 +5,5 @@ export const environment = {
   production: true,
   useMock: true,
   apiUrl: '',
-  whatsappNumber: '5519998593010',
+  whatsappNumber: '5511974685735',
 };
