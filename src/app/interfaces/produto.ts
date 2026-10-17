@@ -1,11 +1,11 @@
 import { Estoque } from "./estoque";
 
 export interface Produto {
-    id: string,
+    id: number,
     nome: string,
     codigo: string,
     preco: number,
-    estoque: Estoque,
+    estoque?: Estoque,
     descricaoCurta: string,
     imagemURL: string
 }

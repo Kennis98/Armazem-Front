@@ -1,160 +1,60 @@
-.fretes-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 30px 20px;
-}
-
-.titulo-sessao {
-  font-size: 1.8rem;
-  color: #333;
-  margin-bottom: 25px;
-  border-bottom: 2px solid #FACC15;
-  padding-bottom: 10px;
-  display: inline-block;
-}
-
-/* ===============================
-   LAYOUT ASSIMÉTRICO (Grid)
-=============================== */
 .layout-fretes {
   display: grid;
-  /* Divide a tela: 1 parte para o form (menor), 2 partes para a tabela (maior) */
   grid-template-columns: 1fr 2fr;
-  gap: 30px;
+  gap: 24px;
   align-items: start;
 
-  /* Responsividade para telas de celular/tablet */
-  @media (max-width: 992px) {
-    grid-template-columns: 1fr;
-  }
+  @media (max-width: 991.98px) { grid-template-columns: 1fr; }
 }
 
-.card-formulario, .card-tabela {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 25px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-}
-
-.titulo-card {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #495057;
-  margin: 0 0 20px 0;
-}
-
-/* ===============================
-   FORMULÁRIO MODERNO
-=============================== */
-.form-moderno {
+.form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 16px;
+
+  .btn-brand { margin-top: 4px; }
 }
 
-.campo-grupo {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+.tabela-responsiva { overflow-x: auto; }
 
-  label {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #495057;
-  }
-
-  input {
-    padding: 10px 12px;
-    border: 1px solid #ced4da;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    transition: border-color 0.2s, box-shadow 0.2s;
-
-    &:focus {
-      outline: none;
-      border-color: #FACC15;
-      box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.2);
-    }
-  }
-}
-
-.btn-salvar {
-  background-color: #FACC15;
-  color: #333;
-  border: none;
-  padding: 12px;
-  border-radius: 8px;
-  font-weight: bold;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: filter 0.2s, transform 0.1s;
-  margin-top: 10px;
-
-  &:hover { filter: brightness(0.9); }
-  &:active { transform: scale(0.98); }
-}
-
-/* ===============================
-   TABELA MODERNA
-=============================== */
-.tabela-responsiva {
-  overflow-x: auto; /* Permite scroll horizontal apenas na tabela se a tela for pequena */
-}
-
-.tabela-moderna {
+.tabela {
   width: 100%;
   border-collapse: collapse;
-  text-align: left;
-  font-size: 0.95rem;
+  font-size: .95rem;
 
-  thead {
-    background-color: #f8f9fa;
-    
-    th {
-      padding: 12px 15px;
-      font-weight: 700;
-      color: #495057;
-      border-bottom: 2px solid #dee2e6;
-    }
+  th {
+    padding: 12px 14px;
+    background: var(--color-surface-alt);
+    border-bottom: 2px solid var(--color-border);
+    text-align: left;
+    font-weight: 700;
+    white-space: nowrap;
   }
 
-  tbody {
-    tr {
-      border-bottom: 1px solid #eee;
-      transition: background-color 0.2s;
-
-      &:hover {
-        background-color: #fdfdfd; /* Efeito de hover bem sutil */
-      }
-    }
-
-    td {
-      padding: 14px 15px;
-      color: #495057;
-      vertical-align: middle;
-    }
+  td {
+    padding: 13px 14px;
+    border-bottom: 1px solid rgba(212, 185, 115, .35);
+    vertical-align: middle;
   }
+
+  tbody tr { transition: background-color .2s; }
+  tbody tr:hover { background: var(--color-surface-alt); }
+
+  .direita { text-align: right; }
 }
 
-/* Pequeno balão cinza para a UF */
-.uf-badge {
-  span {
-    background-color: #e9ecef;
-    padding: 3px 8px;
-    border-radius: 4px;
-    font-weight: bold;
-    font-size: 0.85rem;
-  }
+.uf {
+  padding: 3px 9px;
+  border-radius: 6px;
+  background: var(--color-primary);
+  font-size: .8rem;
+  font-weight: 700;
 }
 
-.valor-col {
-  font-weight: 600;
-  color: #16a34a !important; /* Destaca o valor do frete em verde */
-}
+.valor { font-weight: 700; }
 
 .tabela-vazia {
+  padding: 32px !important;
   text-align: center;
-  color: #868e96;
-  padding: 30px !important;
-  font-style: italic;
+  color: var(--color-muted);
 }

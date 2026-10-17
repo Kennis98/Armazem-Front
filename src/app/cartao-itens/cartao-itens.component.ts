@@ -1,61 +1,37 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { FormsModule } from '@angular/forms'; // 👉 Isso resolve o erro NG8002 (ngModel)
+import { SeletorQuantidadeComponent } from '../seletor-quantidade/seletor-quantidade.component';
 
+/** Cartão de produto da vitrine (catálogo). */
 @Component({
   selector: 'app-cartao-itens',
   standalone: true,
-  imports: [CommonModule, MatIconModule, FormsModule],
+  imports: [CurrencyPipe, MatIconModule, SeletorQuantidadeComponent],
   templateUrl: './cartao-itens.component.html',
   styleUrl: './cartao-itens.component.scss'
 })
 export class CartaoItensComponent {
-  @Input() classeBotaoPrincipal: string = 'btn-primary';
-  @Input() classeBotaoSecundario: string = 'btn-danger';
-  
-  @Input() nome: string = '';
-  @Input() descricao: string = '';
-  @Input() imagem: string = '';
-  @Input() estoque: number = 0;
-  
-  @Input() modo: 'catalogo' | 'carrinho' = 'catalogo'; 
-  
-  // 👉 Isso resolve os erros NG9 de "property does not exist"
-  @Input() quantidade: number = 1; 
+  @Input() nome = '';
+  @Input() descricao = '';
+  @Input() imagem = '';
+  @Input() preco = 0;
+  @Input() estoque = 0;
 
-  // 👉 Isso resolve os erros NG5 de "void is not assignable to number"
-  @Output() adicionarAoCarrinho = new EventEmitter<number>(); 
-  @Output() removerDoCarrinho = new EventEmitter<void>();
-  @Output() quantidadeAlterada = new EventEmitter<number>(); 
+  @Output() adicionarAoCarrinho = new EventEmitter<number>();
 
-  // MÉTODOS
-  aumentar() {
-    this.quantidade++;
-    this.notificarMudanca();
+  quantidade = 1;
+  imagemFalhou = false;
+
+  /** Abaixo disso o cartão avisa que restam poucas unidades. */
+  readonly limiteEstoqueBaixo = 5;
+
+  get indisponivel(): boolean {
+    return this.estoque <= 0;
   }
 
-  diminuir() {
-    if (this.quantidade > 1) {
-      this.quantidade--;
-      this.notificarMudanca();
-    }
-  }
-
-  notificarMudanca() {
-    if (this.modo === 'carrinho') {
-      this.quantidadeAlterada.emit(this.quantidade);
-    }
-  }
-
-  adicionar() {
+  adicionar(): void {
     this.adicionarAoCarrinho.emit(this.quantidade);
-    if (this.modo === 'catalogo') {
-      this.quantidade = 1; 
-    }
-  }
-
-  remover() {
-    this.removerDoCarrinho.emit();
+    this.quantidade = 1;
   }
 }

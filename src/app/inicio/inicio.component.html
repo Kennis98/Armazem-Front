@@ -1,1 +1,62 @@
-<p>inicio works!</p>
+<section class="hero">
+  <div class="hero__texto">
+    <span class="hero__selo">Desde 2020</span>
+    <h1>Seu armazém de confiança, <span>agora online</span></h1>
+    <p>Embutidos, laticínios, ovos e muito mais. Monte seu pedido, calcule o frete e finalize direto pelo WhatsApp.</p>
+    @if (categorias()[0]; as primeira) {
+      <a class="btn-brand btn-brand--dark" [routerLink]="['/catalogo', primeira.id]">
+        Ver produtos <mat-icon aria-hidden="true">arrow_forward</mat-icon>
+      </a>
+    }
+  </div>
+  <img class="hero__logo" src="assets/logos/armazem-logo.png" width="260" height="254"
+    alt="Logo do Armazém Geovanne">
+</section>
+
+<section class="page">
+  <h2 class="page-title">Categorias</h2>
+
+  @switch (estado()) {
+    @case ('carregando') {
+      <div class="categorias">
+        @for (_ of [1, 2, 3, 4]; track $index) {
+          <div class="skeleton categoria-skeleton"></div>
+        }
+      </div>
+    }
+    @case ('erro') {
+      <div class="alert-erro" role="alert">
+        <mat-icon aria-hidden="true">error_outline</mat-icon>
+        Não foi possível carregar as categorias.
+        <button type="button" class="btn-brand btn-brand--outline ms-auto" (click)="carregar()">Tentar novamente</button>
+      </div>
+    }
+    @default {
+      <div class="categorias">
+        @for (categoria of categorias(); track categoria.id) {
+          <a class="categoria" [routerLink]="['/catalogo', categoria.id]">
+            <span class="categoria__icone"><mat-icon aria-hidden="true">{{ icone(categoria) }}</mat-icon></span>
+            <span class="categoria__nome">{{ categoria.descricao }}</span>
+            <mat-icon class="categoria__seta" aria-hidden="true">chevron_right</mat-icon>
+          </a>
+        } @empty {
+          <p>Nenhuma categoria disponível no momento.</p>
+        }
+      </div>
+    }
+  }
+</section>
+
+<section class="page">
+  <h2 class="page-title">Como funciona</h2>
+  <ol class="passos">
+    @for (passo of passos; track passo.titulo; let i = $index) {
+      <li class="passo surface">
+        <span class="passo__numero">{{ i + 1 }}</span>
+        <mat-icon class="passo__icone" aria-hidden="true">{{ passo.icone }}</mat-icon>
+        <h3>{{ passo.titulo }}</h3>
+        <p>{{ passo.texto }}</p>
+      </li>
+    }
+  </ol>
+</section>

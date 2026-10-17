@@ -1,5 +1,4 @@
-// src/app/service/carrinho.service.ts
-import { Injectable } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { Produto } from '../interfaces/produto';
 
 export interface ItemCarrinho extends Produto {
@@ -12,21 +11,34 @@ export interface ItemCarrinho extends Produto {
 export class CarrinhoService {
   private readonly STORAGE_KEY = 'carrinho';
 
-  private obterCarrinhoStorage(): ItemCarrinho[] {
-    const dados = localStorage.getItem(this.STORAGE_KEY);
-    return dados ? JSON.parse(dados) : [];
+  private readonly _itens = signal<ItemCarrinho[]>(this.lerStorage());
+
+  readonly itens = this._itens.asReadonly();
+  readonly quantidadeTotal = computed(() => this._itens().reduce((total, i) => total + i.quantidade, 0));
+  readonly subtotal = computed(() => this._itens().reduce((total, i) => total + i.preco * i.quantidade, 0));
+
+  private lerStorage(): ItemCarrinho[] {
+    try {
+      const dados = localStorage.getItem(this.STORAGE_KEY);
+      return dados ? JSON.parse(dados) : [];
+    } catch {
+      return [];
+    }
   }
 
-  private salvarCarrinhoStorage(itens: ItemCarrinho[]): void {
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(itens));
+  private atualizar(itens: ItemCarrinho[]): void {
+    this._itens.set(itens);
+    try {
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(itens));
+    } catch { /* storage indisponível: o carrinho vale só nesta sessão */ }
   }
 
   listarItens(): ItemCarrinho[] {
-    return this.obterCarrinhoStorage();
+    return this._itens();
   }
 
   adicionarItem(produto: Produto, quantidadeDesejada: number = 1): void {
-    const itens = this.obterCarrinhoStorage();
+    const itens = this._itens().map(i => ({ ...i }));
     const itemExistente = itens.find(i => i.id === produto.id);
 
     if (itemExistente) {
@@ -35,31 +47,24 @@ export class CarrinhoService {
       itens.push({ ...produto, quantidade: quantidadeDesejada });
     }
 
-    this.salvarCarrinhoStorage(itens);
+    this.atualizar(itens);
   }
 
-  // 👉 NOVO MÉTODO: Atualiza o número exato digitado ou clicado no carrinho
-  atualizarQuantidade(produtoId: string, novaQuantidade: number): void {
+  /** Define a quantidade exata do item (zero ou menos remove o item). */
+  atualizarQuantidade(produtoId: number, novaQuantidade: number): void {
     if (novaQuantidade <= 0) {
       this.removerItem(produtoId);
       return;
     }
 
-    const itens = this.obterCarrinhoStorage();
-    const item = itens.find(i => i.id === produtoId);
-    
-    if (item) {
-      item.quantidade = novaQuantidade;
-      this.salvarCarrinhoStorage(itens);
-    }
+    this.atualizar(this._itens().map(i => i.id === produtoId ? { ...i, quantidade: novaQuantidade } : i));
   }
 
-  removerItem(produtoId: string): void {
-    const itens = this.obterCarrinhoStorage().filter(i => i.id !== produtoId);
-    this.salvarCarrinhoStorage(itens);
+  removerItem(produtoId: number): void {
+    this.atualizar(this._itens().filter(i => i.id !== produtoId));
   }
 
   limparCarrinho(): void {
-    localStorage.removeItem(this.STORAGE_KEY);
+    this.atualizar([]);
   }
 }

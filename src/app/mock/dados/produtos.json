@@ -1,0 +1,62 @@
+{
+  "1": [
+    {
+      "id": 101,
+      "nome": "Presunto Cozido Fatiado",
+      "codigo": "ARM-101",
+      "preco": 14.9,
+      "estoque": { "saldoVirtualTotal": 42 },
+      "descricaoCurta": "Presunto cozido fatiado, pacote de 200 g.",
+      "imagemURL": "assets/mock/presunto.svg"
+    },
+    {
+      "id": 102,
+      "nome": "Linguiça Calabresa",
+      "codigo": "ARM-102",
+      "preco": 18.5,
+      "estoque": { "saldoVirtualTotal": 3 },
+      "descricaoCurta": "Calabresa defumada, pacote de 500 g.",
+      "imagemURL": "assets/mock/calabresa.svg"
+    }
+  ],
+  "2": [
+    {
+      "id": 201,
+      "nome": "Queijo Mussarela Fatiado",
+      "codigo": "ARM-201",
+      "preco": 32.9,
+      "estoque": { "saldoVirtualTotal": 35 },
+      "descricaoCurta": "Mussarela fatiada, bandeja de 400 g.",
+      "imagemURL": "assets/mock/mussarela.svg"
+    },
+    {
+      "id": 202,
+      "nome": "Manteiga com Sal",
+      "codigo": "ARM-202",
+      "preco": 13.9,
+      "estoque": { "saldoVirtualTotal": 20 },
+      "descricaoCurta": "Manteiga com sal, tablete de 200 g.",
+      "imagemURL": "assets/mock/manteiga.svg"
+    }
+  ],
+  "3": [
+    {
+      "id": 301,
+      "nome": "Ovos Brancos — Cartela 30",
+      "codigo": "ARM-301",
+      "preco": 28.9,
+      "estoque": { "saldoVirtualTotal": 40 },
+      "descricaoCurta": "Cartela com 30 ovos brancos tipo grande.",
+      "imagemURL": "assets/mock/ovos-brancos.svg"
+    },
+    {
+      "id": 302,
+      "nome": "Ovos Caipiras — Dúzia",
+      "codigo": "ARM-302",
+      "preco": 16.9,
+      "estoque": { "saldoVirtualTotal": 12 },
+      "descricaoCurta": "Dúzia de ovos caipiras selecionados.",
+      "imagemURL": "assets/mock/ovos-caipiras.svg"
+    }
+  ]
+}

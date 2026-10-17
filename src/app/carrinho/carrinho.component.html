@@ -1,60 +1,120 @@
-<section class="carrinho-container">
-  <h2 class="titulo-sessao">Meu Carrinho</h2>
+<section class="page">
+  <h1 class="page-title">Meu carrinho</h1>
 
-  <div *ngIf="itens.length === 0" class="carrinho-vazio">
-    <img src="assets/carrinho-vazio.png" alt="Carrinho Vazio" style="max-width: 150px; margin-bottom: 15px; opacity: 0.5;">
-    <p>Seu carrinho está vazio no momento.</p>
-    <button class="btn-voltar" routerLink="/">Voltar às Compras</button>
-  </div>
-
-  <div class="grade-carrinho" *ngIf="itens.length > 0">
-    <div *ngFor="let item of itens">
-      <app-cartao-itens
-        [nome]="item.nome"
-        [descricao]="item.descricaoCurta"
-        [estoque]="item.estoque.saldoVirtualTotal"
-        [imagem]="item.imagemURL"
-        [modo]="'carrinho'"
-        [quantidade]="item.quantidade"
-        (quantidadeAlterada)="atualizarQuantidadeProduto(item.id, $event)"
-        (removerDoCarrinho)="removerItem(item.id)">
-      </app-cartao-itens>
+  @if (itens().length === 0) {
+    <div class="vazio surface">
+      <mat-icon aria-hidden="true">shopping_cart</mat-icon>
+      <p>Seu carrinho está vazio no momento.</p>
+      <a class="btn-brand" routerLink="/inicio">Voltar às compras</a>
     </div>
-  </div>
+  } @else {
+    <div class="layout">
+      <div class="lista surface">
+        <div class="lista__topo">
+          <h2 class="surface-title">{{ itens().length }} {{ itens().length === 1 ? 'produto' : 'produtos' }}</h2>
+          <button type="button" class="link-acao" (click)="limpar()">Esvaziar carrinho</button>
+        </div>
 
-  <hr *ngIf="itens.length > 0" class="divisor">
+        <ul class="itens">
+          @for (item of itens(); track item.id) {
+            <li class="item">
+              <div class="item__imagem">
+                @if (item.imagemURL) {
+                  <img [src]="item.imagemURL" [alt]="item.nome" loading="lazy">
+                } @else {
+                  <mat-icon aria-hidden="true">image_not_supported</mat-icon>
+                }
+              </div>
 
-  <div class="frete-container" *ngIf="itens.length > 0">
-    <h3 class="titulo-frete">Calcular Frete</h3>
-    
-    <div class="input-group">
-      <input type="text" #cepInput class="input-cep" placeholder="Digite seu CEP" maxlength="9">
-      <button class="btn-calcular" (click)="calcularFrete(cepInput.value)">Calcular</button>
-    </div>
+              <div class="item__info">
+                <strong>{{ item.nome }}</strong>
+                <span class="item__unitario">{{ item.preco | currency:'BRL' }} cada</span>
+              </div>
 
-    <div *ngIf="erroFrete" class="alerta-erro">
-      {{ erroFrete }}
-    </div>
+              <app-seletor-quantidade [valor]="item.quantidade" [max]="estoqueMaximo(item.estoque?.saldoVirtualTotal)"
+                [descricao]="'Quantidade de ' + item.nome"
+                (valorChange)="atualizarQuantidade(item.id, $event)" />
 
-    <div *ngIf="freteResultado" class="resultado-frete">
-      <div class="detalhes-endereco">
-        <p><strong>Destino:</strong> {{ freteResultado.logradouro }}, {{ freteResultado.bairro }}</p>
-        <p><strong>Cidade:</strong> {{ freteResultado.localidade }} - {{ freteResultado.uf }}</p>
-      </div>
-      
-      <div class="valor-frete-caixa">
-        <span>Valor do Frete:</span>
-        <strong *ngIf="freteResultado.valorFrete > 0; else freteZerado" class="frete-pago">
-          {{ freteResultado.valorFrete | currency:'BRL' }}
-        </strong>
-        <ng-template #freteZerado>
-          <strong class="frete-gratis">A Combinar / Não cadastrado</strong>
-        </ng-template>
+              <strong class="item__subtotal">{{ item.preco * item.quantidade | currency:'BRL' }}</strong>
+
+              <button type="button" class="item__remover" (click)="removerItem(item.id, item.nome)"
+                [attr.aria-label]="'Remover ' + item.nome">
+                <mat-icon aria-hidden="true">delete_outline</mat-icon>
+              </button>
+            </li>
+          }
+        </ul>
       </div>
 
-      <button class="btn-whatsapp" (click)="confirmarPedido()">
-        Confirmar Pedido via WhatsApp
-      </button>
+      <aside class="resumo surface" aria-label="Resumo do pedido">
+        <h2 class="surface-title">Resumo do pedido</h2>
+
+        <form class="frete" (submit)="calcularFrete($event)">
+          <label for="cep">Calcular frete</label>
+          <div class="frete__campos">
+            <input id="cep" type="text" class="input" inputmode="numeric" autocomplete="postal-code"
+              placeholder="00000-000" maxlength="9" [class.is-invalid]="erroFrete()" [value]="cep()"
+              (input)="mascararCep($any($event.target).value)">
+            <button type="submit" class="btn-brand" [disabled]="calculando()">
+              {{ calculando() ? 'Calculando…' : 'Calcular' }}
+            </button>
+          </div>
+
+          @if (cepsDemo.length) {
+            <p class="frete__demo">
+              Modo demonstração. Teste com:
+              @for (cepDemo of cepsDemo; track cepDemo) {
+                <button type="button" class="chip" (click)="usarCepDemo(cepDemo)">{{ cepDemo }}</button>
+              }
+            </p>
+          }
+
+          @if (erroFrete()) {
+            <p class="field-error" role="alert">{{ erroFrete() }}</p>
+          }
+        </form>
+
+        @if (freteResultado(); as frete) {
+          <div class="destino">
+            <mat-icon aria-hidden="true">place</mat-icon>
+            <div>
+              <strong>{{ frete.logradouro }}</strong>
+              <span>{{ frete.bairro }} · {{ frete.localidade }} - {{ frete.uf }}</span>
+            </div>
+          </div>
+        }
+
+        <dl class="totais">
+          <div>
+            <dt>Subtotal</dt>
+            <dd>{{ subtotal() | currency:'BRL' }}</dd>
+          </div>
+          <div>
+            <dt>Frete</dt>
+            <dd>
+              @if (!freteResultado()) {
+                <span class="muted">Informe o CEP</span>
+              } @else if (valorFrete() > 0) {
+                {{ valorFrete() | currency:'BRL' }}
+              } @else {
+                <span class="muted">A combinar</span>
+              }
+            </dd>
+          </div>
+          <div class="totais__total">
+            <dt>Total</dt>
+            <dd>{{ total() | currency:'BRL' }}</dd>
+          </div>
+        </dl>
+
+        <button type="button" class="btn-brand btn-brand--whatsapp btn-brand--block" (click)="confirmarPedido()"
+          [disabled]="!freteResultado()">
+          <mat-icon aria-hidden="true">chat</mat-icon> Confirmar pedido via WhatsApp
+        </button>
+        @if (!freteResultado()) {
+          <p class="dica">Calcule o frete para liberar o pedido.</p>
+        }
+      </aside>
     </div>
-  </div>
+  }
 </section>

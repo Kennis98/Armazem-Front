@@ -1,41 +1,29 @@
-<section class="cartao-moderno">
-  <div class="cartao-imagem">
-    <img [src]="imagem" alt="Imagem do produto {{nome}}">
-  </div>
-  
-  <div class="cartao-conteudo">
-    <h3 class="cartao-titulo">{{ nome }}</h3>
-    <p class="cartao-descricao">{{ descricao }}</p>
+<article class="cartao" [class.cartao--indisponivel]="indisponivel">
+  <div class="cartao__imagem">
+    @if (imagem && !imagemFalhou) {
+      <img [src]="imagem" [alt]="nome" loading="lazy" (error)="imagemFalhou = true">
+    } @else {
+      <mat-icon class="cartao__sem-imagem" aria-hidden="true">image_not_supported</mat-icon>
+    }
 
-    <div class="controle-qtd-wrapper">
-      <button type="button" class="btn-qtd" (click)="diminuir()">-</button>
-      
-      <input 
-        type="number" 
-        class="input-qtd" 
-        [(ngModel)]="quantidade" 
-        (ngModelChange)="notificarMudanca()" 
-        min="1">
-        
-      <button type="button" class="btn-qtd" (click)="aumentar()">+</button>
-    </div>
-    
-    <div class="cartao-acoes">
-      <button 
-        type="button" 
-        *ngIf="modo === 'carrinho'" 
-        class="btn-acao btn-remover" 
-        (click)="remover()">
-        <mat-icon>delete_outline</mat-icon> Remover
-      </button>
-      
-      <button 
-        type="button" 
-        *ngIf="modo === 'catalogo'" 
-        class="btn-acao btn-adicionar" 
-        (click)="adicionar()">
-        Adicionar
+    @if (indisponivel) {
+      <span class="selo selo--erro">Indisponível</span>
+    } @else if (estoque <= limiteEstoqueBaixo) {
+      <span class="selo selo--aviso">Restam {{ estoque }}</span>
+    }
+  </div>
+
+  <div class="cartao__corpo">
+    <h3 class="cartao__titulo">{{ nome }}</h3>
+    <p class="cartao__descricao">{{ descricao }}</p>
+    <p class="cartao__preco">{{ preco | currency:'BRL' }}</p>
+
+    <div class="cartao__acoes">
+      <app-seletor-quantidade [(valor)]="quantidade" [max]="estoque > 0 ? estoque : null"
+        [descricao]="'Quantidade de ' + nome" />
+      <button type="button" class="btn-brand btn-brand--block" [disabled]="indisponivel" (click)="adicionar()">
+        <mat-icon aria-hidden="true">add_shopping_cart</mat-icon> Adicionar
       </button>
     </div>
   </div>
-</section>
+</article>
